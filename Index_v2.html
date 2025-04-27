@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>My First Three JS</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <script type='text/javascript' src='../jsm/Tween.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        a {
+            color: #f00;
+        }
+    </style>
+        <script>
+           
+            </script>
+</head>
+<body>
+    <div class="Filters">
+        <table id="Filters">
+            <tr>
+                <th>Filters</th>
+            </tr>
+            <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Floor:</td>
+                <td>
+                <select name="Floors" id="floors" width=500>
+                <option value="All">All</option>
+                  <option value="1">First</option>
+                  <option value="2">Second</option>
+                  <option value="3">Third</option>
+                  <option value="4">Fourth</option>
+                  <option value="5">Fifth</option>
+                  <option value="6">Sixth</option>
+                </select>
+                </td>
+              </tr>
+                    <tr>
+                <td>Bedrooms:</td>
+                <td>
+                <select name="Beds" id="beds" width=500>
+                <option value="All">All</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="Penthouse">Penthouse</option>
+                </select>
+                </td>
+              </tr>
+                    <tr>
+                <td>Baths:</td>
+                <td>
+                <select name="Baths" id="baths" width=500>
+                <option value="All">All</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                </td>
+              </tr>
+                    <tr>
+                <td>Aspect:</td>
+                <td>
+                <select name="Aspect" id="aspect" width=500>
+                <option value="All">All</option>
+                  <option value="N">North</option>
+                  <option value="S">South</option>
+                  <option value="E">East</option>
+                  <option value="W">West</option>
+                </select>
+                </td>
+              </tr>
+                    <tr>
+                <td>Status:</td>
+                <td>
+                <select name="Status" id="status" width=500>
+                <option value="All">All</option>
+                  <option value="Available">Available</option>
+                  <option value="Sold">Sold</option>
+                  <option value="Reserved">Reserved</option>
+                </select>
+                </td>
+              </tr>
+                <tr>
+                <td></td>
+              </tr>
+                <tr>
+                <td><button id='filter'>Search</button></td>
+              </tr>
+            </tr>
+            <tr>
+            <td></td>
+          </tr>
+            </tr>
+            <tr>
+            <td><button id='OpenList'>Open List</button></td>
+        </tr>
+            </tr>
+            <tr>
+            <td></td>
+        </tr>
+          <tr>
+            <td>
+                <button id="Reset">Reset</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h1 id="Selected">Selected = null</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="Info" id="InfoButton">Open Info</button>
+            </td>
+        </tr>
+        </table>
+        <button class="Fullscreen" id="openfullscreen" onclick="openFullscreen();">Open Fullscreen</button>
+        <button class="Fullscreen" id="closefullscreen" visibility="hidden" onclick="closeFullscreen();">Close Fullscreen</button>
+    </div>
+
+    <div class="ListContainer" id ="List">
+    
+        <div class="List">
+            <table class="Listtable" id="Listtable">
+            </table>
+            <br clear="all" />
+            <button class="Back" id="CloseList">Back</button>
+        </div>
+    </div>
+
+    <div class="VolumeInfo" id="VolumeInfo">
+        <table>
+            <tr>
+                <th>Volume Info</th>
+            </tr>
+            <tr>
+                <td></td>
+              </tr>
+            <tr>
+                <th id="SelectedVolumeName">Selected Volume</th>
+            </tr>
+            <tr>
+                <td>Floor:</td>
+                <td id="Floor"></td>
+              </tr>
+                    <tr>
+                <td>Bedrooms:</td>
+                <td id="Bedroom"></td>
+              </tr>
+                    <tr>
+                <td>Baths:</td>
+                <td id="Baths"></td>
+              </tr>
+                    <tr>
+                <td>Aspect:</td>
+                <td id="Aspect"></td>
+              </tr>
+                    <tr>
+                <td>Status:</td>
+                <td id="Status"></td>
+              </tr>
+        </table>
+        <button class="Back" id="CloseInfo">Back</button>
+        <img class="floorplan" src="../Floorplans/tempFloorplan.png" alt="Floorplan">
+        <table class="volumeInfoOptions">
+            <tr>
+                <td>
+                    <button id="InfoGalleryButton">Gallery</button>
+                </td>
+                <td>
+                    <button id="InfoMagazineButton">Magazine</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="Gallery" id="Gallery">
+        <!-- Slideshow container -->
+        <div class="slideshow-container">
+
+            <!-- Full-width images with number and caption text -->
+            <div class="mySlides fade">
+            <div class="numbertext">1 / 3</div>
+            <img src="../Gallery/07-18-24-502_1440x550.jpg" style="width:100%">
+            <div class="text">Caption Text</div>
+            </div>
+        
+            <div class="mySlides fade">
+            <div class="numbertext">2 / 3</div>
+            <img src="../Gallery/pexels-photo-5232649.jpeg" style="width:100%">
+            <div class="text">Caption Two</div>
+            </div>
+        
+            <div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img src="../Gallery/shutterstock_554314555_copy.jpg" style="width:100%">
+            <div class="text">Caption Three</div>
+            </div>
+        
+            <!-- Next and previous buttons -->
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+    
+        <!-- The dots/circles -->
+        <div class="indicators">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+        <button class="Back" id="CloseGallery">Back</button>
+    </div>
+
+    <div class="Magazine" id="Magazine">
+        <table class="Magazinetable">
+            <tr>
+                <th>
+                    Magazine
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <img src="../Gallery/07-18-24-502_1440x550.jpg" style="width:100%">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="../Gallery/pexels-photo-5232649.jpeg" style="width:100%">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="../Gallery/shutterstock_554314555_copy.jpg" style="width:100%">
+                </td>
+            </tr>
+        </table>
+        <br clear="all" />
+        <button class="Back" id="CloseMagazine">Back</button>
+    </div>
+
+    <script>
+        var elem = document.documentElement;
+        var isFullscreen;
+
+        function openFullscreen() 
+        {
+          if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+          } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+          } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+          }
+        }
+        
+        function closeFullscreen() 
+        {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+          }
+        }
+
+        var slideIndex = 1;
+
+        // Next/previous controls
+        function plusSlides(n) {
+        showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+        showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+        }
+        </script>
+
+    <script type="module">
+
+            import * as THREE from '../build/three.module.js';
+			import { OrbitControls } from '../jsm/OrbitControls.js';
+            import { FBXLoader } from '../jsm/FBXLoader.js';
+            import { InteractionManager } from '../build/three.interactive.module.js';
+
+			let camera, controls, scene, renderer, raycaster;
+
+            let container;
+            let INTERSECTED;
+            let HIGHLIGHTED;
+
+            let mixer;
+            let dancer;
+            const clock = new THREE.Clock();
+
+			const pointer = new THREE.Vector2();
+            const previous = new THREE.Vector2();
+
+            let interactionManager;
+            var moving;
+            var orbit;
+            var clickedobject;
+            var isovervolume;
+            var isMobile;
+            var volumes;
+            var filteredvolumes = [];
+
+            var selectedVolume;
+            var volumeInfoVisible;
+
+            var listOpen;
+
+            const defaultColor = new THREE.Color( '#defce6' );
+            const highlightColor = new THREE.Color( 'red' );
+            const selectedColor = new THREE.Color( '#ffa200' );
+            var data;
+
+			init();
+			animate();
+
+            var x = "Total Height: " + window.innerHeight;
+
+            alert(x);
+
+			function init() {
+
+                //XML volume data
+                var xmlDoc;
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'Data.xml', true);
+            
+                xhr.timeout = 2000; // time in milliseconds
+            
+                xhr.onload = function () {
+                // Request finished. Do processing here.
+                    xmlDoc = this.responseXML; // <- Here's your XML file
+                    //console.log(xmlDoc.getElementsByTagName("raw")[0].childNodes[0].nodeValue);
+                    data = JSON.parse(xmlDoc.getElementsByTagName("raw")[0].childNodes[0].nodeValue);
+
+                    let count = 0;
+                    for(var v of data)
+                    {
+                        filteredvolumes[count]= v.name;
+                        count++;
+                    }
+                };
+            
+                xhr.ontimeout = function (e) {
+                // XMLHttpRequest timed out. Do something here.
+                };
+            
+                xhr.send(null);
+
+                container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xcccccc );
+				//scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
+
+                raycaster = new THREE.Raycaster();
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 40000 );
+				camera.position.set( 6000, 4000, 3000 );
+
+                interactionManager = new InteractionManager(
+                    renderer,
+                    camera,
+                    renderer.domElement
+                );
+				
+				isMobile = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement);
+                isovervolume = 0;
+                moving = 0;
+            
+				// world
+                const loader = new FBXLoader();
+				loader.load( '../models/FBX/3D_Landscape.fbx', function ( object ) 
+                {
+                    object.traverse( function ( child ) {
+
+                        if ( child.isMesh ) {
+
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            //child.material = new THREE.MeshLambertMaterial({color: 'green'});
+                            
+                        }
+
+                    } );
+
+                   // object.scale.set(0.04, 0.04, 0.04);
+                   //object.position.set(5000, 0,5000);
+					scene.add( object );
+
+				} );
+
+                loader.load( '../models/FBX/3D_Facade_Details.fbx', function ( object ) 
+                {
+                    object.traverse( function ( child ) {
+
+                        if ( child.isMesh ) {
+
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                           // child.material = new THREE.MeshLambertMaterial({color: 'green'});
+                            
+                        }
+
+                    } );
+
+                   // object.scale.set(0.04, 0.04, 0.04);
+                    //object.position.set(5000, 0,5000);
+					scene.add( object );
+
+				} );
+
+                loader.load( '../models/FBX/3D_Balaustrades.fbx', function ( object ) 
+                {
+                    object.traverse( function ( child ) {
+
+                        if ( child.isMesh ) {
+
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            //child.material = new THREE.MeshLambertMaterial({color: 'green'});
+                            
+                        }
+
+                    } );
+
+                   // object.scale.set(0.04, 0.04, 0.04);
+                   //object.position.set(5000, 0,5000);
+					scene.add( object );
+
+				} );
+
+                loader.load( '../models/FBX/3D_Facade_Mouldings.fbx', function ( object ) 
+                {
+                    object.traverse( function ( child ) {
+
+                        if ( child.isMesh ) {
+
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            //child.material = new THREE.MeshLambertMaterial({color: 'green'});
+                            
+                        }
+
+                    } );
+
+                   // object.scale.set(0.04, 0.04, 0.04);
+                   //object.position.set(5000, 0,5000);
+					scene.add( object );
+
+				} );
+
+                loader.load( '../models/FBX/3D_Facade_Wall.fbx', function ( object ) 
+                {
+                    object.traverse( function ( child ) {
+
+                        if ( child.isMesh ) {
+
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            //child.material = new THREE.MeshLambertMaterial({color: 'green'});
+                            
+                        }
+
+                    } );
+
+                   // object.scale.set(0.04, 0.04, 0.04);
+                   //object.position.set(5000, 0,5000);
+					scene.add( object );
+
+				} );
+
+                loader.load( '../models/FBX/3D_Floors.fbx', function ( object ) 
+                {
+                    object.traverse( function ( child ) {
+
+                        if ( child.isMesh ) {
+
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            //child.material = new THREE.MeshLambertMaterial({color: 'green'});
+                            
+                        }
+
+                    } );
+
+                   // object.scale.set(0.04, 0.04, 0.04);
+                  // object.position.set(5000, 0,5000);
+					scene.add( object );
+
+				} );
+
+                loader.load( '../models/FBX/Volumes_Highlights.fbx', function ( object ) 
+                {
+                    volumes = object;
+                    object.traverse( function ( child ) {
+
+                        if ( child.isMesh ) {
+
+                            child.castShadow = false;
+                            child.receiveShadow = false;
+                            child.material = new THREE.MeshLambertMaterial({color: defaultColor});
+
+                            if(child.name.includes("Suite"))
+                            {
+                                child.visible = true;
+                            }
+                            else
+                            {
+                                child.visible = false;
+                            }
+
+                            if(!isMobile)
+                            {
+                 
+                            }
+                            else
+                            {
+                                child.addEventListener('touchend', (event) => {
+                            
+                                    if(moving < 1 && clickedobject < 1)
+                                    {
+                                        clickedobject = 1;
+                                        if(INTERSECTED != null && INTERSECTED != event.target)
+                                        {
+                                            INTERSECTED.material.color.set(defaultColor);
+                                        }
+
+                                        INTERSECTED = event.target;
+                                        INTERSECTED.material.color.set(selectedColor);
+                                        onClick();
+                                    }
+                                });
+                            }
+                            
+                            child.addEventListener('click', (event) => {
+             
+                                if(moving < 1 && clickedobject < 1)
+                                {
+                                    if(previous.x == pointer.x && previous.y == pointer.y)
+                                    {
+
+                                        clickedobject = 1;
+                                        if(INTERSECTED != null && INTERSECTED != event.target)
+                                        {
+                                            INTERSECTED.material.color.set(defaultColor);
+                                        }
+
+                                        INTERSECTED = event.target;
+                                        INTERSECTED.material.color.set(selectedColor);
+                                        onClick();
+                                    }
+                                }
+                            });
+
+                            interactionManager.add(child);
+                            
+                        }
+
+                    } );
+
+                    //object.scale.set(0.04, 0.04, 0.04);
+                   // object.position.set(5000, 0,5000);
+					scene.add( object );
+
+				} );
+
+                const geometry = new THREE.BoxGeometry( 20, 20, 20 );
+
+                for ( let i = 0; i < 1; i ++ ) 
+                {
+
+                    const object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: 'black' } ) );
+                    object.position.set(-5000,0,-5000);
+                    orbit = object;
+                }
+
+                // controls
+                controls = new OrbitControls( camera, renderer.domElement );
+				controls.listenToKeyEvents( window ); // optional
+
+				controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+				controls.dampingFactor = 0.05;
+
+				controls.screenSpacePanning = false;
+
+				controls.minDistance = 8000;
+				controls.maxDistance = 20000;
+
+				controls.maxPolarAngle = Math.PI / 2;
+
+				// lights
+
+                const dirLight1 = new THREE.DirectionalLight( 0xffffff, 1.2);
+				dirLight1.position.set( 0, 1, 0 );
+                /*dirLight1.castShadow = false;
+                dirLight1.shadowCameraVisible = false;
+
+                dirLight1.shadowMapWidth = 512;
+                dirLight1.shadowMapHeight = 512;
+
+                var d = 200;
+
+                dirLight1.shadowCameraLeft = -d;
+                dirLight1.shadowCameraRight = d;
+                dirLight1.shadowCameraTop = d;
+                dirLight1.shadowCameraBottom = -d;
+
+                dirLight1.shadowCameraFar = 20000;
+                dirLight1.shadowDarkness = 10;*/
+				scene.add( dirLight1 );
+
+                const pointLight1 = new THREE.PointLight(0x222222);
+                pointLight1.position.set(500, 500, 500);
+                scene.add(pointLight1);
+
+                const pointLight2 = new THREE.PointLight(0x222222);
+                pointLight2.position.set(-500, -500, -500);
+                scene.add(pointLight2);
+
+				const ambientLight = new THREE.AmbientLight( 0x222222 );
+				scene.add( ambientLight );
+
+				//WINDOW
+				window.addEventListener( 'resize', onWindowResize );
+                renderer.domElement.addEventListener( 'mousemove', onMouseMove );
+                renderer.domElement.addEventListener('mouseup', mouseup, true);
+                renderer.domElement.addEventListener('mousedown', mouseDown);
+
+
+                renderer.domElement.addEventListener( 'pointermove', onPointerMove );
+                renderer.domElement.addEventListener( 'pointerup', pointerup, true );
+
+                document.getElementById("Reset").addEventListener("click", function() 
+                {
+                    controls.reset();
+
+                    if(INTERSECTED != null)
+                    {
+                        INTERSECTED.material.color.set(defaultColor);
+                    }
+
+                    INTERSECTED = null;
+
+                    //tweenReset(orbit);
+
+                    selectedVolume = false;
+                    document.getElementById("InfoButton").style.visibility="hidden";
+                    document.getElementById("Selected").innerHTML = "Selected = null";
+
+                    for(let i =0; i < volumes.children.length; i++)
+                    {
+                        if(volumes.children[i].name.includes("Suite"))
+                        {
+                            volumes.children[i].visible = true;
+                        }
+                        else
+                        {
+                            volumes.children[i].visible = false;
+                        }
+                    }
+
+                    filteredvolumes = [];
+                    let count = 0;
+
+                    for(var v of data)
+                    {
+                        filteredvolumes[count]= v.name;
+                        count++;
+                    }
+
+                    document.getElementById("floors").value = "All";
+                    document.getElementById("beds").value = "All";
+                    document.getElementById("baths").value = "All";
+                    document.getElementById("aspect").value = "All";
+                    document.getElementById("status").value = "All";
+
+                    tweenlookat(orbit);
+                });
+
+                document.getElementById("InfoButton").addEventListener("click", function() 
+                {
+                    //find elements and output data
+                    updateinfodisplay();
+                });
+
+                document.getElementById("CloseInfo").addEventListener("click", function() 
+                {
+                    document.getElementById("VolumeInfo").style.display="none";
+
+                    if(listOpen)
+                    {
+                      openlistview();
+                    }
+                });
+
+                document.getElementById("InfoGalleryButton").addEventListener("click", function() 
+                {
+                    document.getElementById("Gallery").style.display="block";
+                    showSlides(2);
+                });
+
+                document.getElementById("CloseGallery").addEventListener("click", function() 
+                {
+                    document.getElementById("Gallery").style.display="none";
+                });
+
+                document.getElementById("OpenList").addEventListener("click", function() 
+                {
+                    openlistview();
+
+                });
+
+                document.getElementById("CloseList").addEventListener("click", function() 
+                {
+                    listOpen = false;
+                    document.getElementById("List").style.display="none";
+                    document.getElementById("Listtable").innerHTML = "";
+                });
+
+
+                document.getElementById("InfoMagazineButton").addEventListener("click", function() 
+                {
+                    document.getElementById("Magazine").style.display="block";
+                });
+
+                document.getElementById("CloseMagazine").addEventListener("click", function() 
+                {
+                    document.getElementById("Magazine").style.display="none";
+                });
+
+                document.getElementById("filter").addEventListener("click", function() 
+                {
+                    if(INTERSECTED != null)
+                    {
+                        INTERSECTED.material.color.set(defaultColor);
+                    }
+
+                    INTERSECTED = null;
+                    selectedVolume = false;
+                    document.getElementById("Selected").innerHTML = "Selected = null";
+
+                    var floor = document.getElementById("floors").value;
+                    var beds = document.getElementById("beds").value;
+                    var baths = document.getElementById("baths").value;
+                    var aspect = document.getElementById("aspect").value;
+                    var status = document.getElementById("status").value;
+
+                    filteredvolumes = [];
+                    let count = 0;
+
+                    for(let i =0; i < volumes.children.length; i++)
+                    {
+                        var result = filterValue(data, "name", volumes.children[i].name);
+
+                        if(result != null)
+                        {
+                            if(floor != "All")
+                            {
+                                var multiplefloors = result.floor.split("|");
+                                var foundfloor = false;
+
+                                for(let j = 0; j < multiplefloors.length; j++)
+                                {
+                                    if(floor == multiplefloors[j])
+                                    {
+                                        foundfloor = true;
+                                        break;
+                                    }
+                                }
+
+                                if(!foundfloor)
+                                {
+                                    volumes.children[i].visible = false;
+                                    continue;
+                                }
+                            }
+
+                            if(beds != "All")
+                            {
+                                if(beds != result.beds)
+                                {
+                                    volumes.children[i].visible = false;
+                                    continue;
+                                }
+                            }
+
+                            if(baths != "All")
+                            {
+                                if(baths != result.baths)
+                                {
+                                    volumes.children[i].visible = false;
+                                    continue;
+                                }
+                            }
+
+                            
+                            if(aspect != "All")
+                            {
+                                if(aspect != result.aspect)
+                                {
+                                    volumes.children[i].visible = false;
+                                    continue;
+                                }
+                            }
+
+                            
+                            if(status != "All")
+                            {
+                                if(status != result.salesstatus)
+                                {
+                                    volumes.children[i].visible = false;
+                                    continue;
+                                }
+                            }
+
+                            volumes.children[i].visible = true;
+                            filteredvolumes[count]= volumes.children[i].name;
+                            count++;
+                        }
+                        else
+                        {
+                            volumes.children[i].visible = false;
+                        }
+                    }
+                })
+
+                document.getElementById("closefullscreen").style.visibility="hidden";
+                isFullscreen = false;
+                tweenlookat(orbit);
+
+                document.addEventListener('fullscreenchange', (event) => {
+                // document.fullscreenElement will point to the element that
+                // is in fullscreen mode if there is one. If there isn't one,
+                // the value of the property is null.
+                if (document.fullscreenElement) {
+                    
+                    document.getElementById("openfullscreen").style.visibility="hidden";
+                    document.getElementById("closefullscreen").style.visibility="visible";
+
+                    isFullscreen = true;
+                } else {
+                    
+                    document.getElementById("openfullscreen").style.visibility="visible";
+                    document.getElementById("closefullscreen").style.visibility="hidden";
+
+                    isFullscreen = false;
+                }
+                });
+            }
+
+            function filterValue(obj, key, value) 
+            {
+                return obj.find(function(v){ return v[key] === value});
+            }
+
+            function openlistview()
+            {
+                listOpen = true;
+
+                //create the table
+                var table = document.getElementById("Listtable");
+                var thead, tbody, th, tr, td;
+                table.appendChild(thead = document.createElement("thead"));
+                thead.appendChild(tr = document.createElement("tr"));
+                tr.appendChild(th = document.createElement("th"));
+                th.innerHTML = "Name";
+                tr.appendChild(th = document.createElement("th"));
+                th.innerHTML = "Floor";
+                tr.appendChild(th = document.createElement("th"));
+                th.innerHTML = "Beds";
+                tr.appendChild(th = document.createElement("th"));
+                th.innerHTML = "Baths";
+                tr.appendChild(th = document.createElement("th"));
+                th.innerHTML = "Aspect";
+                tr.appendChild(th = document.createElement("th"));
+                th.innerHTML = "Status";
+                tr.appendChild(th = document.createElement("th"));
+                th.innerHTML = "";
+                table.appendChild(tbody = document.createElement("tbody"));
+                tbody.style.maxHeight = window.innerHeight - 200;
+
+                for (var v of data) 
+                {  
+                    if(filteredvolumes.includes(v.name))
+                    {
+                        tbody.appendChild(tr = document.createElement("tr"));
+                        tr.setAttribute("id", "row" + v.name);
+
+                        tr.appendChild(td = document.createElement("td"));
+                        td.innerHTML = v.name;
+                        tr.appendChild(td = document.createElement("td"));
+                        td.innerHTML = v.floor;
+                        tr.appendChild(td = document.createElement("td"));
+                        td.innerHTML = v.beds;
+                        tr.appendChild(td = document.createElement("td"));
+                        td.innerHTML = v.baths;
+                        tr.appendChild(td = document.createElement("td"));
+                        td.innerHTML = v.aspect;
+                        tr.appendChild(td = document.createElement("td"));
+                        td.innerHTML = v.salesstatus;
+                        tr.appendChild(td = document.createElement("td"));
+
+                        var btn = document.createElement('input');
+                        btn.type = "button";
+                        btn.value = "View Floorplan";
+                        btn.onclick = (function(v) {return function() {listviewfloorplan(v);}})(v);
+                        td.appendChild(btn);
+                    }
+                }
+                document.getElementById("List").style.display="block";
+            }
+
+            function listviewfloorplan(obj)
+            {
+                for(let i = 0; i < volumes.children.length; i++)
+                {
+                    if(volumes.children[i].name == obj.name)
+                    {
+                        clickedobject = 1;
+                        if(INTERSECTED != null && INTERSECTED != volumes.children[i])
+                        {
+                            INTERSECTED.material.color.set(defaultColor);
+                        }
+
+                        INTERSECTED = volumes.children[i];
+                        INTERSECTED.material.color.set(selectedColor);
+                        onClick(); 
+                        break;
+                    }
+                }
+                updateinfodisplay();
+            }
+
+            function updateinfodisplay()
+            {
+                for (let i = 0; i < data.length; i++) 
+                {
+                    if(data[i].name == INTERSECTED.name)
+                    {
+                        document.getElementById("Floor").innerHTML = data[i].floor;
+                        document.getElementById("Status").innerHTML = data[i].salesstatus;
+                        document.getElementById("Bedroom").innerHTML = data[i].beds;
+                        document.getElementById("Aspect").innerHTML = data[i].aspect;
+                        document.getElementById("Baths").innerHTML = data[i].baths;
+                        break;
+                    }
+                }
+
+                if(listOpen)
+                {
+                    document.getElementById("List").style.display="none";
+                    document.getElementById("Listtable").innerHTML = "";
+                }
+
+                document.getElementById("VolumeInfo").style.display="block";
+            }
+
+			function onWindowResize() {
+
+                renderer.setSize( window.innerWidth, window.innerHeight );
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+			}
+
+            function mouseDown( event ) 
+            {
+                previous.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+                previous.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+                
+                moving = 1;
+            }
+
+            function onMouseMove( event ) 
+            {
+                pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+                pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+            }
+
+            function onPointerMove(event)
+            {
+                pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+                pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+            }
+
+            function mouseup()
+            {
+                moving = 0;
+            }
+
+            function pointerup()
+            {
+                moving = 0;
+            }
+
+			function animate(time) {
+
+				requestAnimationFrame( animate );
+
+                //const delta = clock.getDelta();
+
+				//if ( mixer ) mixer.update( delta );
+
+                if(!isMobile)
+                {
+                    update();
+                }
+
+				render();
+
+                controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+                interactionManager.update();
+
+                TWEEN.update(time);
+            }
+
+            function onClick()
+            {
+                if(INTERSECTED != null)
+				{
+					document.getElementById("Selected").innerHTML = "Selected = " + INTERSECTED.name;
+                    document.getElementById("InfoButton").style.visibility="visible";
+                    document.getElementById("SelectedVolumeName").innerHTML = INTERSECTED.name;
+
+
+                    selectedVolume = true;
+                    tweenlookat(INTERSECTED);
+	   
+				}
+            }
+
+            function tweenlookat(object)
+            {
+                if(object != null)
+                {
+                    TWEEN.removeAll();
+                    controls.enabled = false;	
+
+                    var target = { x : object.position.x, y: object.position.y, z: object.position.z };
+
+//alert(camera.position.x + ":" + camera.position.y + ":" + camera.position.z);
+
+                    var camNewPosition = { x : camera.position.x, y : camera.position.y, z : camera.position.z};
+                    var targetNewPos = {x : target.x, y : target.y, z : target.z};
+
+                    
+                 
+                   /* var camTween = new TWEEN.Tween(camera.length).to(100, 1000).easing(TWEEN.Easing.Quadratic.Out)
+                    
+                    .onUpdate(function(){
+                        camera.position.sub(controls.target).setLength(camera.length).add(controls.target);
+
+                    })
+                    .onComplete(function() {
+                        camera.position.sub(controls.target).setLength(100).add(controls.target);
+
+
+                        })
+*/
+
+
+                    var targetTween = new TWEEN.Tween(controls.target).to(targetNewPos, 1000).easing(TWEEN.Easing.Quadratic.Out)  
+                    .onComplete(function() {
+                            controls.target.copy(targetNewPos);
+                            controls.enabled = true;
+                            clickedobject = 0;
+                            //camera.position.sub(controls.target).setLength(100).add(controls.target);
+                            //camera.updateProjectionMatrix();
+                            })
+                    .start();			
+                    
+                    /*var currentDolly = controls.getZoom();
+					var targetDolly = 1.5;
+
+                    var tweenDolly = new TWEEN.Tween(currentDolly).to(targetDolly, 1000);
+                    tweenDolly.onUpdate(function(){
+                        
+                            controls.dollyOut(currentDolly);
+                        
+                    });
+
+                    tweenDolly.onComplete(function() 
+                    {
+                        controls.setZoom(targetDolly);
+
+                    });
+
+                    tweenDolly.easing(TWEEN.Easing.Cubic.Out);
+
+					var position = { x : controls.target.x, y: controls.target.y, z: controls.target.z };
+					var target = { x : object.position.x, y: object.position.y, z: object.position.z };
+					var tween = new TWEEN.Tween(position).to(target, 1000);
+					
+					tween.onUpdate(function(){
+						controls.target.set(position.x, position.y, position.z);
+					});
+                    tween.onComplete(function(){
+                        controls.enabled = true;
+                        clickedobject = 0;
+					});
+
+					tween.easing(TWEEN.Easing.Cubic.Out);
+
+					tweenDolly.start();
+					tween.start();*/
+                }
+            }
+
+            function tweenReset(object)
+            {
+
+                if(object != null)
+                {
+                    TWEEN.removeAll();
+                    controls.enabled = false;
+
+					/*var currentDolly = controls.getZoom();
+					var targetDolly = 2;
+					var tweenDolly = new TWEEN.Tween(currentDolly).to(targetDolly, 1000);
+					tweenDolly.onUpdate(function(){
+						
+						controls.dollyOut(currentDolly);
+					});
+
+					tweenDolly.onComplete(function() 
+					{
+						controls.setZoom(targetDolly);
+
+					});
+
+					tweenDolly.easing(TWEEN.Easing.Cubic.Out);*/
+
+					var position = { x : controls.target.x, y: controls.target.y, z: controls.target.z };
+					var target = { x : object.position.x, y: object.position.y, z: object.position.z };
+					var tween = new TWEEN.Tween(position).to(target, 1000);
+					
+					tween.onUpdate(function(){
+						controls.target.set(position.x, position.y, position.z);
+					});
+                    tween.onComplete(function(){
+                        controls.enabled = true;
+                        clickedobject = 0;
+					});
+
+					tween.easing(TWEEN.Easing.Cubic.Out);
+
+					//tweenDolly.start();
+					tween.start();
+                }
+            }
+
+            function update()
+            {
+                if(moving < 1 && volumes != null)
+                {
+                    raycaster.setFromCamera( pointer, camera );
+
+                    const intersects = raycaster.intersectObjects( volumes.children, true );
+    
+                    if ( intersects.length > 0 ) 
+                    {
+
+                    if ( HIGHLIGHTED != intersects[ 0 ].object ) {
+
+                        if ( HIGHLIGHTED ) HIGHLIGHTED.material.emissive.setHex( HIGHLIGHTED.currentHex );
+
+                        HIGHLIGHTED = intersects[ 0 ].object;
+                        HIGHLIGHTED.currentHex = HIGHLIGHTED.material.emissive.getHex();
+                        HIGHLIGHTED.material.emissive.setHex( 0xff0000 );
+                        document.body.style.cursor = 'pointer';
+                    }
+
+                    } else {
+
+                    if ( HIGHLIGHTED ) HIGHLIGHTED.material.emissive.setHex( HIGHLIGHTED.currentHex );
+
+                    HIGHLIGHTED = null;
+                    document.body.style.cursor = 'default';
+
+                    }
+                }
+                else
+                {
+                    if ( HIGHLIGHTED ) HIGHLIGHTED.material.emissive.setHex( HIGHLIGHTED.currentHex );
+
+                    HIGHLIGHTED = null;
+                    document.body.style.cursor = 'default';
+                }
+
+            }
+
+			function render() 
+            {
+				renderer.render( scene, camera );
+			}
+    </script>
+</body>
+</html>
